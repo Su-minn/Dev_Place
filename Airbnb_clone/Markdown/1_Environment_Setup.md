@@ -114,8 +114,25 @@
 
 - .gitignore : github에 올리지 않고 싶은 파일 (보안, 굳이 필요없는 파일 등)
 
-  gitignore python 을 검색하 디폴트로 쓰이는 내용 복사
-  Mac은 추가적으로 gitignore에다가 .DS_Store 추가
+  .gitignore python 을 검색하 디폴트로 쓰이는 내용 복사
+  Mac은 추가적으로 .gitignore에다가 .DS_Store 추가
+
 
 ## 1.4 Testing the Bubble
 
+- 버블 작동 방식 알아보기
+  새로운 탭에서 django-admin 을 실행하면
+  Command not found 가 뜬다
+
+  > 어떤 콘솔이든 간에 django로 무엇인가를 하려면 먼저, pipenv shell 부터 실행해야함
+
+- Which django-admin 을 치면 어디에 있는지 나온다
+
+- 창을 완전히 껐다면, pipenv shell 을 다시 해주어야함
+  작업 전에 > 항상 django-admin을 확인해야함
+
+- ~~~ bash
+  exit
+  ~~~
+
+  을 입력해서 나갈 수도 있다
