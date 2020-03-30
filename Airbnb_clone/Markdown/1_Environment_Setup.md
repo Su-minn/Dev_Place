@@ -6,18 +6,19 @@
 
 ## 1.0 The Package installer for Python
 
-- Pipenv 설치해야하는 이유
-  Django 를 홈페이지에서 알려준대로만 설치하면 좋지 않음
-
-  1) NodeJS를 안다는 가정하에 설명
+- Pipenv 설치해야하는 이유 
+  
+- Django 를 홈페이지에서 알려준대로만 설치하면 좋지 않음
+  
+1) NodeJS를 안다는 가정하에 설명
   파이썬에는 공식 npm 이 없음 pip가 있으나 pip는 전역으로 설치해버림 -> 이는 좋지 않다
-
-  pipenv 는 파이썬을 위한 npm + package.json 이라 볼 수 있음
+  
+pipenv 는 파이썬을 위한 npm + package.json 이라 볼 수 있음
   이를 사용하면 Django를 해당 프로젝트 환경에만 설치할 수 있음
-
-  > 결론 pip 대신 pipenv를 사용해라
-
-  2) NodeJs 모르는 경우
+  
+> 결론 pip 대신 pipenv를 사용해라
+  
+2) NodeJs 모르는 경우
   서로 다른 버전을 사용하는 Django 프로젝트가 있을 수도 있으니, pip로 글로벌하게 설치하는건
   좋은 것이 아님
   즉, bubble (비눗방울) 처럼 각각 분리해서 지역적으로 설치해야함

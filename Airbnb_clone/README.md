@@ -1,4 +1,31 @@
-- # Airbnb Clone
+- # Airbnb Clone Project
 
-  Cloning Airbnb with Python, Django, Tailwind and more ...
--
+  
+
+  ## 학습목표
+
+  
+
+  - Cloning Airbnb with Python, Django, Tailwind and more ...
+  - 풀스택을 배우고 구현해보며, 전반적인 프로세스 및 개발을 경험
+  - 필요시 Python 언어 학습 병행
+
+  
+
+  
+
+  ## 총 챕터 수 : 26장
+
+  
+
+  - 목표 수강일 : 22일 -> (주 6회 기준 1일 1챕터 기준)
+
+  - 수강 기간 : 3.30 ~ 4.24 (22일)
+
+  - 예상 목표 진도 : **[ <u>~ 1장</u> / 26장 ]** 수강  **[3월 30일 (월) 기준]**
+
+  - 주간 목표 진도 : **[ <u>~ 6장</u> / 26장 ]** 수강  **[4월 5일 (일) 기준]**
+  
+  - 현재 수강 상태 :  **[ <u>~ 1장</u> / 26장 ]** 수강완료  **[3월 30일 (월) 기준]**
+  
+    
