@@ -1,0 +1,4 @@
+{
+	"python.formatting.provider": "black",
+	"python.pythonPath": "/Users/sjeon/.local/share/virtualenvs/Project-pwRGsniM/bin/python3.7"
+}

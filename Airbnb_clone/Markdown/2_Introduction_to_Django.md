@@ -73,7 +73,7 @@
 - Linter는 에러를 알려주고, Formatter는 자동으로 수정 포매팅해줌
   추천하는 formatter 는 black
 
-- 오른쪽 아래의 Use black을 클릭하거나, piping install black 입력
+- 오른쪽 아래의 Use black을 클릭하거나, pipenv install black 입력
 
   > 자동으로 되는 것들은 모두 python extension이 작동하기 때문
   >
@@ -109,7 +109,8 @@
   ~~~
 
   하나 남은 에러는 길이가 91이라서 그런 것, 어쩔수 없는건 그냥 두자
-  
+
+
 
 ## 2.2 Falling in love with Django part One
 
@@ -128,6 +129,7 @@
 
 - Django Documentation 문서 사이트들 중 단연코 최고라 생각
   참고할 만한 자료가 매우 친절하게 다 존재
+  
 
 
 ## 2.3 Falling in love with Django part Two
@@ -191,6 +193,7 @@
   1) 계정 설정하기
   2) 다시 서버에 들어가서 만든 계정으로 로그인
   3) 관리자 패널 사용 가능
+  
 
 
 ## 2.4 Django Migrations
@@ -235,13 +238,88 @@
 
 ## 2.5 Django Applications
 
+### 코드 정리하는 법을 알아보자
+
+- 우리가 만든 장고 프로젝트는 여러 어플리케이션의 집합
+  애플리케이션은 함수의 그룹(Groups of function)
+
+- 언제 어떻게 애플리케이션을 만들어야하는지, 프로젝트를 어떻게 계획해야하는지
+
+- Ex) room 어플리케이션
+  room 생성하기, 수정하기, 리스트 보여주기, 업로드 하기 등 의 function 포함
+
+- user 폴더는 이미 장고에 존재, 하지만 추가적으로 필요한 부분은 더해야함
+
+  > 주의 해야할 점
+  > review 생성, 수정, room 예약, 삭제, 취소 등을 하나의 room 폴더에 다 넣으면
+  > 너무 폴더가 거대해짐 -> Divide and conqure의 관점에서 쪼개야함
+
+- 장고를 효과적으로 사용하기 위해서는 Divde and conqure 관점에서 접근해야하고
+  그렇기에, 미리 계획을 하고 진행해야함
+
+  > 즉, 언제 애플리케이션을 만들고, 만들지말아야 할지를 구분할줄 알아야함
+  > 예로, ''한문장으로 그 애플리케이션을 표현할 수 있는가''
+  > ''애플리케이션의 설명이 and로 이어지지는 않는가'' 등을 따져봐야함
+
 
 
 ## 2.6 Creating the Apps!
+
+### Aplication을 만들어보자
+
+- 앱을 시작하는 커맨드
+
+  ~~~ bash
+  django-admin startapp name's'
+  ~~~
+
+  프로젝트 폴더안, config 폴더 밖에서 위와같이 코드 작성
+  어플리케이션의 이름은 복수로 뒤에 's'를 붙여야함
+  ex) rooms, users, reviews, conversations, lists, reservations 만들기
+
+- 장고 admin에는 이미 users application이 존재함
+  새로 만든 이유는, admin users 관리 창과 사용자용 users를 구분하기 위해서이다.
+  좀 더 정확하게 admin에서 어플리케이션 이름은 users가 아니고,
+  authentication이다
+
+- 아직 application을 설치하지는 않아서, 웹에 뜨지는 않음 
 
 
 
 ## 2.7 Explaing the Apps
 
+### Users apllication을 만들어보자
 
+- application에는 여러 파일들이 있다.
+  이 파일들은 optional하지 않기에 바꾸면안됨
+  framework이지, library가 아니기 때문
+
+  - framework는 따라야하는 룰과 같고,
+    library는 원하는대로 변경 가능 (React)
+  - 즉, 장고에서 파일과 폴더의 이름은 모두 그대로 둬야함
+
+- admin.py를 변경하면 admin 패널에 반영됨
+
+- apps.py는 Configuration 파일
+
+- Models.py 는 data, database에 대한 설명이 들어감
+
+- test.py 테스트케이스
+
+- Views.py 는 사용자가 보게되는곳, html을 render(보여주는)하는 function이 들어감
+
+- config 디렉토리안에 urls.py는 웹사이트의 url을 컨트롤 한다
+
+  - 하지만, 모든 url을 Configdml url.py에 넣는건 비추천
+    너무 커지게 되므로 divide and conqure하자
+
+    > users 디렉토리 안에 urls.py를 생성하고 
+    > (수정은 안되지만 create은 가능하기때문)
+    >
+    > config의 urls.py에서 users에 있는 urls.py를 import 한다!
+    > 이후, users의 urls.py에는 users/login 등이 들어가게 될 것이다 
+
+    
+
+---
 
