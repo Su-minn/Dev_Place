@@ -4,136 +4,198 @@
 
 ## 1.0 Data Types of Python
 
-- 변수 : 정보를 넣는 곳, 데이터 저장하는 곳
 
-- a =2
 
-- a= 3
+- 변수(Variable) : 정보를 넣는 곳, 데이터 저장하는 곳  
+  ex) a =2, b= 3
 
-- Print 함수 : print(a+b)
+- Print 함수 : 결과값을 출력하는 함수  
+  ex) print(a+b)
 
-- 변수에 저장 할 떄, 문자열은 따옴표나 쌍따옴표로 둘러싸야함
+- 변수에 저장 할 떄, 문자열(string)은 따옴표나 쌍따옴표로 둘러싸야함  
+  ex) `a_string = "like this"`
 
 - 변수에 넣을 수 있는 것
-  숫자, 문자열, 참 /거짓
+  숫자, 문자열(String), 참(True) /거짓(False) 등
 
 - 참 거짓
-  True / False -> 이건 텍스트가 아님
-  c = False 와 c = "False" 는 완전히 다름 / 참고로 파이썬에서 첫 문자는 대문자로 적어야함
-
+  True / False -> 문자열과는 다르다
+  즉, c = False 와 c = "False" 는 완전히 다름  
+파이썬에서 참거짓의 첫 문자는 대문자로 적어야함 ( True , False (o) // true, false (x) )
+  
 - float는 소숫점이 있음 . 다음에 숫자가 떠다닌다고해서 float임
+
+- 자료형이 궁금할 때, type() 을 이용
+  ex) `print(type(a_string))`
 
 - None type : 참 거짓이 아닌 없다는 의미 -> 존재하지 않는다는 의미 / python에만 있음
 
-- python 유저의 변수 명명 암묵적 약속
-  변수 이름을 길게 적어야할 때, 모두 소문자이고, 단어끼리 분리시키되 _로 연결
-  뱀 같다 하여 이러한 표기법을 snake case라 한다
-
-- ```python
-  a_string = "like this"
+- Python 변수 명명 암묵적 약속
+  변수 이름을 길게 적어야할 때,   
+  1) 모두 소문자이고,   
+2) 단어끼리 분리시키되 _로 연결
+  뱀 같이 생겼다고하여 이러한 표기법을 'snake case'라 한다
+  ex) super_long_variable = "abcdefghizklmnop"
+  
+- Code
+  
+  ```python
+a_string = "like this"
   a_number = 3
   a_float = 3.12
   a_boolean = False
   a_none = None
   ```
-
+  
   
 
 ## 1.1 Lists in Python
 
-- Python에는 열거형 타입이 존재
+
+
+- Python에는 열거형 타입(sequence type)이 존재
 
 - List와 tuple
 
 - 이번 시간에는 list학습
-  List : 많은 값을 하나의 리스트에 저장
+  List : 많은 값(value)을 열거하여 하나로 저장하고 싶을 때 사용
 
-- 사용 법 : 대괄호로 묶고, 콤마로 구분
+- 사용 법 : 대괄호로 묶고, 콤마로 구분  
 
-- 파이썬 학습시, Python Standard library를 본다
-
-  > 검색창에 python standard library를 검색해서 들어가거나
-  > Docs.python.org를 주소창에 입력
-  >
-  > documents 존재
-
-- ```python
+  ```python
   days =  ["Mon", "Tue", "Wed", "Thur", "Fri"]
   ```
 
+- print(type(days))로 type을 확인하면
+  <class 'list'> 라는 결과가 나온다 - type이 list라는 의미
+
+- 파이썬 학습 시 파이썬이 어떻게 동작하는 지에 대한 Document를 알고싶다면,   
+  [Python Standard library](https://docs.python.org/3/library/) 사이트를 참고할 것
+
+  > 검색창에 python standard library를 검색해서 들어가거나
+  > Docs.python.org를 주소창에 입력
+
+- List의 연산자에는 common & mutable sequence operations가 있음 
+  1) common operations  
+
+  - ex) x in s   
+    : s(sequence)안에 x가 있는가  
   
-
-- List의 연산사 중 한가지
-  x in s : s안에 x가 있는가
-
-- `print("Mon" in days)`
-
-  > 결과 True
-
-- `print("Man" in days)`
-
-  > 결과 False
-
-- index는 0부터 시작
-  days[0] = Mon
-
-- `print(len(days))`
-
-  > 결과 5
-
-  - Mutable operations은 값을 변경할 수 있다는 의미
-    immutable은 값 변경 불가
-
-- days.append(x) : x를 추가
-
-- list는 mutable sequence임
+    result : True (존재하는 경우) // False (존재하지 않는 경우)
+  
+    - `print("Mon" in days)`
+  
+      > 결과 True
+  
+    - `print("Man" in days)`
+  
+      > 결과 False
+  
+  - ex) s[i] (index)
+    
+  : s에서 i번째 item을 가리킴  
+    
+    cf) index는 0부터 시작  
+    
+    - `print(days[0])`
+    
+      > 결과 Mon
+    
+  - ex) len(s) function
+  : s(sequence)의 길이를 알고 싶을 때 사용
+    
+  - `print(len(days))`
+    
+      > 결과 5
+  
+  2) Mutable operations은 값을 변경할 수 있다는 의미  
+  cf) immutable은 값 변경 불가  
+  값을 바꾸고 싶지 않을 때는 immutable sequence에 넣어야함  
+  ==list는 mutable sequence이다==
+  
+  - ex) days.append(x)  
+      : list (days)에 x를 추가
+  
+    ```python
+    days = ["Mon", "Tue", "Wed", "Thur", "Fri"]
+    print(days) 
+    # result : ['Mon', 'Tue', 'Wed', 'Thur', 'Fri']
+    days.append("Sat")
+    print(days) 
+    # result : ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat']
+    ```
+  
+  - ex) days.reverse()
+    : list의 순서를 역방향으로 재정렬
+  
+    ```python
+    days.reverse()
+    print(days)
+    # result : ['Sat', 'Fri', 'Thur', 'Wed', 'Tue', 'Mon']
+    ```
+  
+    
+  
+  
   
 
 ## 1.2 Tuples and Dicts
 
-- 수정 불가능한 sequence : tuple
+
+
+- tuple
+  : immutable sequence type(수정 불가능)
   list는 common and mutable sequence operations 모두 가능하지만,
-  tuple은 common operations만 가능하다
-
-- 사용법 : ( )로 감싸고 ,로 구분한다
-
-  ```python
-  days = ("Mon", "Tue", "Wed", "Thur", "Fri")
-  ```
-
-  리스트와 같지만 변경할 수는 없다
-  약 list의 50%정도 일들을 처리할 수있다
-
-- dictionary
+tuple은 common operations만 가능하다
+  
+  - 사용법 : ( )로 감싸고 ,로 구분한다
+  
+    ```python
+    days = ("Mon", "Tue", "Wed", "Thur", "Fri")
+    
+    print(type(days))
+    # result : <class 'tuple'>
+    ```
+  
+    리스트와 같은 구조를 갖고 있지만, 변경할 수는 없다
+    이에, 약 list의 50%정도 일들을 처리할 수 있다
+  
+    
+  
+- dictionary (사전과 유사)
   : key와 value로 구성
   변수는 둥둥떠있고 어디 한곳에 모여있는게 아니다
-  그래서 dictionary를 만들 것
+  그래서 dictionary를 사용하여 하나의 object를 만든다
 
-- 사용법 : {}로 감싸고
-  "key" : value, "key" : value 나열하여 작성
+  - 사용법 : {}로 감싸고
+    "key" : value, "key" : value 나열하여 작성 / ,(comma) 를 이용하여 구분
 
-- ```python
+  ```python
   nico = {
   	"name" : "Nico",
   	"age" : 29,
   	"korean" : True,
   	"fav_food" : ["kimche", "bulgogi"]
   }
+  
+  print(nico)
+  # result : {'name' : 'Nico', 'age' : 29, ~~~}
+  print(nico["name"])
+  # result : Nico
+  
+  # dictonary에 새로운 값을 추가하고 싶을 때 아래와 같이 코드 작성
+  nico["handsome"] = True
+  print(nico)
+  # result : {'name' : 'Nico', 'age' : 29, ~~~, 'handsome' : True}
+  
   ```
 
-- 코드 깔끔하게 정리하기 - 마우스 오른쪽 format doucment 클릭
-
-- `print(nico)`
-
-  > 결과 : {'name' : 'Nico', 'age' : 29, ~~~}
-
-- Print(nico["name"])
-
-  > 결과 : Nico
-
-- 추가하고 싶을때, `nico["handsome"] = True` 와 같이 작성
-
   
+
+- cf) [repl.it](https://repl.it/) : online으로 python(그 외 언어도 가능)을 complie 할 수 있는 website  
+  Tip) repl.it에서 코드 깔끔하게 정리하기 - 마우스 오른쪽 format doucment 클릭
+
+
 
 ## 1.3 Built-in Functions
 
