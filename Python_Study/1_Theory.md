@@ -199,46 +199,58 @@ tuple은 common operations만 가능하다
 
 ## 1.3 Built-in Functions
 
-- 함수는 어떤 기능을 갖고 있고, 반복가능한 것
 
-- print()와 type() 같은 것은 기본적인 함수
 
-- Python standard library에서 built-in function을 보면
-  기본적으로 사용가능한 함수들을 볼 수 있다
+- 함수(function)
+  : 어떤 행동(기능)을 갖고 있고, 반복가능한 것
 
-- 타입 변환 함수
+- print()와 type() 같은 것은 python의 기본 함수
+  [Python Standard library](https://docs.python.org/3/library/)에서 built-in functions part를 참고하면  
+  기본적으로 사용가능한 python 내장 함수들을 확인할 수 있다.  
+
+- ex) 타입 변환 함수  
   Int(), float() 등
 
   ```python
   age = "18"
-  print(type(age)) //	결과 <class 'str'>
+  print(type(age))
+  # result : <class 'str'>
+  
   n_age = int(age)
-  print(type(n_age)) // 결과 <class 'int'>
+  print(type(n_age))
+  # result : <class 'int'>
+  
   ```
 
   
 
 ## 1.4 Creating a Your First Python Function
 
- - 함수 사용법 : ()로 끝나거나, ()안에 무엇인가가 들어감
 
- - python에서는 함수를 만든다하지않고, 정의한다고 함
 
- - 사용법 : def 함수이름():
-   파이썬은 {}로 함수의 시작과 끝을 판단하지 않고,
+ - 함수 사용법 
+   : ()로 끝나거나, ()안에 무엇인가가 들어감
+
+ - python에서는 함수를 만든다하지않고, 정의(define)한다고 함
+
+ - 사용법 
+   : `def function_name():`
+   파이썬은 { } (bracket)로 함수의 시작과 끝을 판단하지 않고,
    indentation (들여쓰기)로 function의 시작과 끝을 판단한다 (tab 이용)
-   one tab으로 function의 body임을 알려줌
-
- - 함수 호출시에는 함수이름() 으로 호출
-
+one tab을 통해서 function의 body임을 알려줌
+   
+ - 함수 호출(실행) 시에는 function_name() 으로 호출  
+function_name 뒤의 ()를 button을 누르는 행위와 같다고 생각하면 기억하기에 편하다  
+   function_name은 button이고, ()가 button을 누르는 행위
+   
    ```python
    def say_hello():
    	print("hello")
    	print("bye")
    	
-   say_hello()
+say_hello()
    ```
-
+   
    
 
 ## 1.5 Function Arguments
