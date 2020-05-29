@@ -81,15 +81,19 @@ Winter : 인턴 진행
 
 - SSi-Python Project (2020-05-25 ~ 2020-06-05)
 
+  =="Life is Short, You need Python" - Bruce Eckel==
+  
   > Goal : Python 언어를 자유자재로 활용할 수 있는 능력 기르기
   > 1) 언어에 익숙해지기
   > 2) Python을 이용하여 코딩테스트 응시할 수 있는 실력 만들기
   > 	2-1) 문제 해결 능력 향상 시키기 
-  > 3) Python 이용 크롤링 진행해보기
+> 3) Python 이용 크롤링 진행해보기
   > 4) Data Science 학습 진행하기
-
+  
+  - Doc
+    - [Namu wiki](https://namu.wiki/w/Python) (정리 예정 🐤)
   - Lecture
-    - Nomad Coder Lecture 수강 (진행 예정 🐤)
+    - Nomad Coder Lecture 수강 (진행중 🐣)
     - [Microsoft Python Lecture](https://www.youtube.com/watch?v=D8OaGUYkHTE&list=PLlrxD0HtieHhHnCUVtR8UHS7eLl33zfJ-) 수강 [Data Science Focusing] (진행 예정 🐤)
     - [Naver Edwith Lecture](https://www.edwith.org/search/show?searchQuery=%ED%8C%8C%EC%9D%B4%EC%8D%AC&MAX=20) (진행 예정 🐤)
     - [Youtube 나도코딩 기본편 Lecture](https://www.youtube.com/watch?v=kWiCuklohdY) (진행 예정 🐤)

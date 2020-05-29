@@ -239,7 +239,7 @@ tuple은 common operations만 가능하다
    : `def function_name():`
    파이썬은 { } (bracket)로 함수의 시작과 끝을 판단하지 않고,
    indentation (들여쓰기)로 function의 시작과 끝을 판단한다 (tab 이용)
-one tab을 통해서 function의 body임을 알려줌
+one tab(= 4칸 공백) 을 통해서 function의 body임을 알려줌
    
  - 함수 호출(실행) 시에는 function_name() 으로 호출  
 function_name 뒤의 ()를 button을 누르는 행위와 같다고 생각하면 기억하기에 편하다  
@@ -249,10 +249,12 @@ function_name 뒤의 ()를 button을 누르는 행위와 같다고 생각하면 
    def say_hello():
    	print("hello")
    	print("bye")
-   	
+   
+   say_hello()
+   # result : hello bye
    ```
 
-say_hello()
+
 
 
 
@@ -277,8 +279,9 @@ say_hello()
   
   say_hello("Nico")
   # result : hello Nico
+  
   say_hello()
-  # result : hello anonymous
+  # result : error
   ```
 
 - default 설정
@@ -481,9 +484,9 @@ Nico Says,
   대부분, 거의 모든 프로그래밍 언어는 조건문을 가지고 있음
 
 - ```python
-  if CONDITION :
+  if CONDITION:
   	1~~
-else :
+else:
     2~~
   ```
   
@@ -512,7 +515,7 @@ print(plus(12, 1.2))
   Python Standard Library에서 Truth Value Testing 참고  
 
 - or 
-  : A or B 에서 둘 중 하나 이상 참인 경우 전체 문장의 값은 참(true)이 되고,  
+  : A or B 에서, 둘 중 하나 이상이 참인 경우 전체 문장의 값은 참(true)이 되고,  
   하나라도 거짓인 경우, 전체 문장의 값은 거짓(false)이 된다
 
   cf) str : string의 type
@@ -611,35 +614,72 @@ print(plus(12, 1.2))
 
 
 
-- 파이썬에는 module 이 내장되어있다
-  module : 기능의 집합 / import해서 사용
-  설치할 필요 없이 Import해서 사용 / 기본적으로 제공하는 모듈에 한해
+- 파이썬에는 module 이라는게 내장되어있다
+  module   
+  : 기능의 집합이며, import해서 사용한다  
+기본적으로 제공하는 모듈은 설치할 필요 없이 Import해서 사용  
+  import만 해주면, module이 제공하는 함수를 사용할 수 있다  
+  
+- 누가 만든 것을 다운로드 받아서 import 할 수 도있고,   
+  기본 제공 모듈을 가져올 수도 있으며,   
+  내가 생성한 파일에서 정의한 기능을 import 할 수도 있음  
 
-- 누가 만든 것은 다운로드 받아서 import 할 수 도있고, 기본 제공 모듈을 가져올 수도 있으며, 내가 만든 것을 가져올수도 있음
-
-- ex) ceil : 올림
+- ex) ceil : 올림, fabs : 절댓값
 
   ```python
   import math
   
-  print(math.ceil(1.2)) // result : 2
+  print(math.ceil(1.2))
+  # result : 2
+  
+  print(math.fabs(-1.2))
+  # result : 1.2
   ```
 
-- import의 주의사항, 예로 math를 import하면 모든 math를 다 가져오므로, 필요한 함수만 import해서 사용
+- import의 주의사항  
+  : math를 import하면 모든 math의 기능을 다 가져오는데, 이건 비효율적임   
+  필요한 함수만 import해서 사용
 
   ```python
   from math import ceil, fsum
   
   print(ceil(1.2))
-  print(fsum([1, 2, 3, 4, 5, 6, 7]))
+  # result : 1.2
+  
+  print(fsum([1, 2, 3, 4, 5, 6, 7])) 
+  # result : 28.0
   ```
 
-- as로 이름을 바꿔줄 수도 있음
-
+- 사용하려는 모듈 함수의 이름을 변경할 수 도 있다
+변경법 : `함수 이름 as 변경하고 싶은 이름`
+  
   ```python
   from math import fsum as sexy_sum
   
   print(sexy_sum([1, 2, 3, 4, 5, 6, 7]))
+# result : 28.0
   ```
-
   
+- 기존에 calculator.py 라는 파일이 있고, 이 파일에 존재하는 함수를 쓰고 싶을 때,
+  아래와 같이 사용
+
+  - 기존에 존재하는 파일 calculator.py
+
+    ```python
+    def plus(a, b):
+    	return a + b
+    
+    def minus(a, b):
+    	return a - b
+    ```
+
+  - calculator의 함수를 import하여 사용하는 파일 main.py
+
+    ```python
+    from calculator import plus, minus
+    
+    print(plus(1, 2), minus(1, 2))
+    # result : 3 -1
+    ```
+
+    
