@@ -93,10 +93,11 @@ a_string = "like this"
   
   - ex) s[i] (index)
     
+  
   : s에서 i번째 item을 가리킴  
-    
+  
     cf) index는 0부터 시작  
-    
+  
     - `print(days[0])`
     
       > 결과 Mon
@@ -108,7 +109,8 @@ a_string = "like this"
     
       > 결과 5
   
-  2) Mutable operations은 값을 변경할 수 있다는 의미  
+  2) Mutable operations
+  : 값을 변경할 수 있다는 의미 -> 값을 변경하는 연산자  
   cf) immutable은 값 변경 불가  
   값을 바꾸고 싶지 않을 때는 immutable sequence에 넣어야함  
   ==list는 mutable sequence이다==
@@ -248,22 +250,62 @@ function_name 뒤의 ()를 button을 누르는 행위와 같다고 생각하면 
    	print("hello")
    	print("bye")
    	
-say_hello()
    ```
-   
-   
+
+say_hello()
+
+
 
 ## 1.5 Function Arguments
 
-- 함수에 전달하는 인자
+
+
+- Arguments - 함수에 전달하는 인자
+: 함수의 ()안에 값을 넣어서 전달
+  유효한 값이라면 무엇이든 전달할 수 있다
+  
+  - Positional Arguments 와 Keyworded Arguments 로 나누어짐
+  - Positional Argument
+    : 위치에 의존적인 인자
+    인자를 받는 순서대로 함수가 받는 값에 대응됨
+  
+- 지금은 Positional argument를 먼저 알아보자.
 
   ```python
-  def say_hello(who="anonymous"): // default 설정
+  def say_hello(who):
   	print("hello", who)
   
-  say_hello("Nico") // result : hello Nico 출력
-  say_hello() // result : hello anonymous 출력
+  say_hello("Nico")
+  # result : hello Nico
+  say_hello()
+  # result : hello anonymous
   ```
+
+- default 설정
+
+  - 사용법
+    : 인자(argument) = value
+  - 함수가, 전달 받아야하는 인자를 받지 못하는 경우 에러를 출력하게 됨
+    인자를 받지 않는 경우, 기본 값(default)을 설정할 수 있음
+
+  ```python
+  def say_hello(who):
+  	print("hello", who)
+  
+  say_hello()
+  # result : error 출력
+  
+  def say_hello(who="anonymous"):
+  	print("hello", who)
+  
+  say_hello("Nico")
+  # result : hello Nico
+  
+  say_hello()
+  # result : hello anonymous
+  ```
+
+   
 
 - 인자 2개인 경우
 
@@ -272,34 +314,65 @@ say_hello()
   	print(a + b)
   	
   plus (2, 5)
+  # result : 7
   
-  def minus(a, b=0): // b가 없는 경우, default를 0으로 설정
+  def minus(a, b=0): # b가 주어지지 않는 경우, default를 0으로 설정
     print(a - b)
     
-  minus(2) // result : 2 출력
+  minus(2) 
+# result : 2
   ```
-
   
+- print() 도 function이며, 무한대의 인자를 가질 수 있다.
+
+
 
 ## 1.6 Returns
 
+
+
+- 값을 단순히 출력하는 것(print)과 반환하는 것(return)에는 큰 차이가 존재한다
+- 실제로 함수를 다루다보면 input으로부터 return 하게되어 나온 그 값(output)을
+  주로 사용하게된다.
+- 아래 실제 코드를 통해 비교해보자. 
+
 ```python
 def p_plus(a, b):
-	print(a + b) // 5 출력
+	print(a + b)
+# result : 5
 
 def r_plus(a, b):
-	return (a + b)
+	return a + b
 
 p_result = p_plus(2, 3)
-r_result = 5
+r_result = r_plus(2, 3)
 
-print(p_result, r_result) // result None, 5 출력
+print(p_result, r_result)
+# result : None, 5
 ```
 
-- return은 함수를 종료한다
+- return 
+  : function을 호출 할 때, function을 return 값으로 치환시켜준다
+  오직 한 번에 하나의 값만 return 할 수 있다
+  
+  - 또한, return은 함수를 종료시킨다
+  
+  ```python
+  def r_plus(a,b):
+  	return a + b
+  	print("This sentence is not printed")
+  	
+  r_result = r_plus(2,4)
+  
+  print(r_result)
+  # result : 6
+  # r_plus 함수에서 return 이후의 내용은 실행되지 않는다
+  ```
+  
   
 
 ## 1.7 Heart
+
 
 
 Nico Says,
@@ -311,40 +384,63 @@ Nico Says,
 
 ## 1.8 Keyworded Arguments
 
-- 지금까지 사용한건 Positional Argument이다
-  인자인데 위치에 의존적인 인자라는 의미
-  위치에 따라 쌍을 이뤄서 대입 됨
 
-- Keyword Argument : 위치가 아닌, 이름으로 쌍을 짓는 인자
-  인자가 많아질때, 순서와 상관없이 input 가능하므로 유용함
-  더 나은 방법임
 
+- 지금까지 사용한 인자는 Positional Argument  
+  : 위치에 의존적인 인자  
+  위치에 따라 쌍을 이뤄서 대입 됨  
+
+- Keyword Argument  
+  : 위치가 아닌, 이름으로 쌍을 짓는 인자  
+  인자가 많아질 때, 순서와 상관없이 input 가능하므로 유용함  
+더 나은 방법임
+  
   ```python
   def plus(a, b):
   	return a - b
   	
   result = plus(b=30, a=1)
-  print(result) // result : -29 출력
+  print(result)
+# result : -29
   ```
+  
+- return 값이 string인 경우 
+  : `return "string"` 의 형식으로 작성
+
+  ```python
+  def say_hello():
+  	return "Hello"
+  	
+  say = say_hello()
+  
+  print(say)
+  # result : Hello
+  ```
+
+  - return 값이 변수를 포함한 string인 경우,  
+    : 방법 1) 앞에 f (format)을 앞에 적어주고, 변수 들을 {}로 감싼다 (추천)  
+      방법 2) 변수는 string 밖으로 분리하고, + 를 통해 연결 한다  
 
   ```python
   def say_hello(name, age):
   	return f"Hello {name} you are {age} years old"
-  // 또는
+  # 또는
   	return "Hello " + name + " you are " + age + "years old"
-  // 로 작성
+  # 로 작성
   
   hello = say_hello(name="nico", age="12")
+  
   print(hello)
+  # result : Hello nico you are 12 years old
   ```
 
-- string안에 변수를 포함시키고 싶으면 앞에 f (format)을 앞에 적어주고,
-  변수를 {}로 감싼다
-  아니면 아래 방법 처럼, 변수를 string 밖으로 빼내야한다
+  
 
   
 
 ## 1.9 Code Challenge!
+
+
 
 - 7가지 function 만들기
   주의 해야할 점 : user는 완벽하지 않다!
@@ -353,11 +449,12 @@ Nico Says,
   def plus(a, b):
   	return a + b
   	
-  plus(12, "10") // error 발생하므로, 예외처리 하기 / hint : type변환
-  ```
-
-   
-
+  plus(12, "10")
+  # error 발생하므로, 예외처리 하기 / hint : type변환
+```
+  
+ 
+  
 - plus
 
 - minus
@@ -372,19 +469,31 @@ Nico Says,
 
 - Reminder
   
+  
 
 ## 1.10 Conditionals Part One
 
+
+
 - 조건문을 알아보자
 
-- if ~~ :
-  else : 과 같이 구성
-  뒤에 : 를 붙여야한다
+- if -else는 조건문이라고 부르며, 기본적으로 소프트웨어 logic을 컨트롤하는 방법
+  대부분, 거의 모든 프로그래밍 언어는 조건문을 가지고 있음
 
-- Python Standard Library에서 Truth Value Testing을 보면
-
-  is 존재 // is : object identity
-  str : string의 type
+- ```python
+  if CONDITION :
+  	1~~
+else :
+    2~~
+  ```
+  
+   과 같이 구성
+  
+  - 뒤에 항상 : 를 붙여야함에 유의
+  - CONDITION이 TRUE라면 if절에 걸린 내용 (1~~) 이 실행되고
+    FALSE라면 else절에 걸린 내용 (\~\~)이 실행된다
+  
+- 예시
 
 ```python
 def	plus(a,b):
@@ -393,24 +502,89 @@ def	plus(a,b):
 	else :
 		return None
 	
-print(plus(12, 1.2)) // result : 13.2
+print(plus(12, 1.2))
+# result : 13.2
 ```
 
+- is
+  : truth value testing 앞과 뒤의 객체가 서로 같은지 확인 (object identity)   
 
+  Python Standard Library에서 Truth Value Testing 참고  
+
+- or 
+  : A or B 에서 둘 중 하나 이상 참인 경우 전체 문장의 값은 참(true)이 되고,  
+  하나라도 거짓인 경우, 전체 문장의 값은 거짓(false)이 된다
+
+  cf) str : string의 type
+
+  
 
 ## 1.11 if else and or
 
-- x or y  / x and y 등의 여러 조건문 존재
+
+
+- 조건문에서는 여러 Boolean Operations를 사용
+
+  - and
+    : x and y에서
+    x와 y가 둘다 true 인 경우에만, true
+  - or
+    : x or y에서
+    x와 y 중 하나 이상이 true이면, true
+  - not
+    : not x에서
+    x가 false인 경우 true
+
+- ```python
+  def age_check(age):
+  	print(f"you are {age}")
+  	if age < 18:
+  		print("you cant drink")
+  	else:
+  		print("enjoy your drink")
+  		
+  age_check(18)
+  ```
+
+  
+
+- if를 여러개 쓰고 싶을 때 (중첩 if 문)
+  elif 를 사용한다
+
 - elif = else if
+
+- if와 elif의 모든 condition에 속하지 않는 경우,
+  else에 속한 내용이 실행된다
+
+  ```python
+  def age_check(age):
+  	print(f"you are {age}")
+  	if age < 18:
+  		print("you cant drink")
+  	elif age == 18:
+  		print("you are new to this!")
+  	elif age > 20 and age < 25:
+  		print("you are still kind of young")
+  	else:
+  		print("enjoy your drink")
+  		
+  age_check(18)
+  ```
+
+  
 
 ## 1.12 for in
 
+
+
 -   반복문
+    : 어떤 행위를 반복적으로 하고 싶을 때 사용
 
-- 사용법 : for x(변수 이름) in days(sequence)
-
-  > 배열의 요소를 순차적으로 가리키고 싶을 때 사용한다
-
+- 사용법 
+: for x(변수 이름) in days(sequence)
+  
+> 배열의 요소 (such as a string, tuple or list) 를 순차적으로 가리키고 싶을 때 사용한다
+  
   ```python
   days = ("Mon", "Tue", "Wed", "Thu", "Fri")
   
@@ -418,12 +592,24 @@ print(plus(12, 1.2)) // result : 13.2
   	if day is "Wed":
   		break
   	else
-  		print(day) // result : Mon Tue 출력
+  		print(day)
+# result : Mon Tue
+  # 변수 day는 for문이 실행될 때 생성됨
+  
+  for x in [1, 2, 3, 4, 5]:
+    print(day)
+  # result : 1 2 3 4 5
+  
+  for letter in "nicolas":
+    print(letter)
+  # result : n i c o l a s
   ```
-
+  
   
 
 ## 1.13 Modules
+
+
 
 - 파이썬에는 module 이 내장되어있다
   module : 기능의 집합 / import해서 사용

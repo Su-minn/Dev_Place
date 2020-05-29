@@ -21,7 +21,8 @@
   3) 거의 코드 없이 작성
 
 - 장고를 활용하는 법보다, 장고의 작동과정과 원리를 이해하는 것이 중요
-  
+
+
 
 ## 11.1 Pagination with Limit and Offset
 
