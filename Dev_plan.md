@@ -101,6 +101,9 @@ Winter : 인턴 진행
     - [Youtube Techboy Lecture](https://www.youtube.com/watch?v=M6kQTpIqpLs) (진행 예정 🐤)
   - Algorithm
     - [Programmers | 코딩테스트 WebSite](https://programmers.co.kr/) (진행 예정 🐤)
+  - Project
+    - [JoCoding Project | Youtube Channel Event](https://youtu.be/UfuuOJ9oVl8) (진행 예정 🐤)
+      Deadline : 2020-06-05(Fri.)
 
 
 
