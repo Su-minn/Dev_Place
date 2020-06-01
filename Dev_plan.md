@@ -133,7 +133,7 @@ Winter : 인턴 진행
 
 
 
-2) 인턴 후기 모음
-[네이버 인턴 후기 1](https://blog.naver.com/barcel/221346197231)
-[네이버 인턴 후기 2](https://blog.naver.com/yeol7902/221692564577)
+2) 인턴 후기 모음  
+[네이버 인턴 후기 1](https://blog.naver.com/barcel/221346197231)  
+[네이버 인턴 후기 2](https://blog.naver.com/yeol7902/221692564577)    
 

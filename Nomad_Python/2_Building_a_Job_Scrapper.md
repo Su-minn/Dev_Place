@@ -798,6 +798,149 @@ print(pages)
 
 
 
+- extract_indeed_jobs에 앞으로 많은 코드가 추가될 예정이다  
+  정보 추출하는 부분이 길어질 예정이므로, 해당부분을 따로 빼서 함수로 만들자
+
+- 함수 이름은 extract_job 인자는 html를 받도록 만들고, 함수 내에 result라고   
+   적혀있던 부분을 html로 변경하자  
+  그리고, print로 작성했던 부분을, dictionary를 return하도록 변경하자  
+
+  ```python
+  def extract_job(html):
+  	title = html.find("div", {"class" : "title"}).find("a")["title"]
+  	company = html.find("span", {"class" : "company"})
+  	company_anchor = company.find("a")
+    if company_anchor is not None:
+    	company = str(company_anchor.string)
+    else:
+    	company = str(company.string)
+    company = company.strip()
+  	return {'title': title, 'company': company}
+  
+  def extract_indeed_jobs(last_pages):
+  	jobs = []
+    # for page in range(last_page):
+    result = request.get(f"{URL}&start={0*LIMIT}")
+    soup = BeautifulSoup(result.txt, "html.parser")
+    results = soup.find_all("div", {"class": "job search-SerpJobCard"})
+    for result in results:
+  		job = extract_job(result)
+      print(job)
+    return jobs
+  ```
+
+  result가 html을 담고 있으므로, extract_indeed_jobs 함수에서  
+  반복문을 통해 함수를 호출할 때, 그 인자에 result를 넣어준다   
+  그 결과를 job에 넣고, print를 해보면 원하는 결과가 잘 출력됨을 알 수 있다
+
+- 그리고 다음으로 해야할 일은, extract_job 함수를 통해 추출해서  
+  변수 job에 넣어준 데이터를 jobs에 넣어주는 것이다  
+  jobs라는 array에 append operation을 이용하여 job의 내용을 넣어주자
+
+  ```python
+  ~~~
+  for result in results:
+  		job = extract_job(result)
+      jobs.append(job)
+    return jobs
+  ```
+
+- main.py에 가서 indeed.py에서 반환되는 값인,   
+  변수 indeed_jobs를 출력해보자
+
+  ```python
+  from indeed import extract_indeed_pages, extract_indeed_jobs
+  
+  last_indeed_pages = extract_indeed_pages()
+  
+  indeed_jobs = extract_indeed_jobs(last_indeed_page)
+  
+  print(indeed_jobs)
+  ```
+
+- 이번에는 indeed 웹사이트에서 장소(location)에 대한 정보를 추출해보자
+
+- 마찬가지로, 웹사이트에서 개발자 도구를 열고, location과 관련된 정보의  
+  소스코드를 확인해보자  
+  어떤 class안에 있는지, 그 Class안에 링크가 있는지를 여러 location을 눌러보며  
+  확인해보자
+
+- 결과적으로, 여러 location의 소스코드를 보았을때, 따로 anchor없이  
+  공통적으로 이름이 location인 class안에 정보가 있음을 확인할 수 있다
+
+- extract_job 함수에 location변수를 추가하여 데이터를 넣어주고,  
+  return 값에 추가시켜주자
+
+  ```python
+  def extract_job(html):
+  	title = html.find("div", {"class" : "title"}).find("a")["title"]
+  	company = html.find("span", {"class" : "company"})
+  	company_anchor = company.find("a")
+    if company_anchor is not None:
+    	company = str(company_anchor.string)
+    else:
+    	company = str(company.string)
+    company = company.strip()
+    location = html.find("span", {"class":"location"}).string
+  	return {'title': title, 'company': company, 'location': location}
+  ```
+
+  위와 같이 코드를 변경하고, 코드를 실행시켜보면 error가 발생
+
+- 디버깅을 해보면, None이 중간에 끼어있다는 것을 알 수 있고  
+  즉, location class를 모든 일자리 데이터가 포함하고 있는 것이 아니기에  
+  위와 같은 방법으로는 데이터를 가져오기 힘들다는 것을 알 게 되었다  
+  cf) 재택근무도 있을 수 있기에 location이 없는 일자리도 있다고 추측..
+
+- 다시 개발자 도구를 통해 indeed 웹페이지의 소스를 뜯어보면  
+  location을 포함하는 div의 속성(attribute)안에 location의 정보가 있음을 확인할 수 있다
+
+- location 변수에, div이고, class name이 recJobLoc이고,   
+  attribute가 data-rc-loc 인 데이터를 넣어주도록 하자
+
+  ```python
+  ~~~
+  location = html.find("div", {"class":"recJobLoc"})["data-rc-loc"]
+  print(location)
+  ~~~
+  ```
+
+  print를 해보면 원하는 결과가 잘 나옴을 확인할 수 있다
+
+- 다음으로, indeed website에서 일자리를 클릭하면,  
+  지원링크로 이동하게되는데, 그 링크를 가져오도록하자
+
+- 링크를 클릭하며 변하는 url을 확인해보면, 해당하는 id가 변함을 볼 수 있다
+
+- 이 id를 어디서 가져와야하는지 알아보자
+
+- 개발자 도구를 다시켜서, 관련된 부분의 소스코드를 확인해보면  
+  div의 id attribute 부분에 해당하는 정보가 있음을 확인할 수 있다
+
+- 그리고 여기서의 div는 extract_indeed_jobs 함수의 result 변수가 가리키는 값이다
+
+- 웹 페이지소스에서 해당 div안의 data-jk를 job_id라는 변수에 넣어주자
+
+  ```python
+  ~~~
+  location = html.find("div", {"class":"recJobLoc"})["data-rc-loc"]
+  job_id = html["data-jk"]
+  print(job_id)
+  # result : 원하는 id가 여러개 출력됨을 확인할 수 있다
+  ~~~
+  ```
+
+  이제, return값에 indeed web 페이지에서 변하지 않는 부분을 복사붙여넣기하고,  
+  변하는 부분인 id 값을 변수로 넣어서 link를 return 해주자
+
+  ```python
+  location = html.find("div", {"class":"recJobLoc"})["data-rc-loc"]
+  job_id = html["data-jk"]
+  return {'title':title, 'company': company, 'location': location, "link": f"https://www.indeed.com/viewjob?jk={job_id}""}
+  ```
+
+  
+
 ## 2.9 StackOverflow Pages
 
 
