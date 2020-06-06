@@ -1,4 +1,4 @@
-# 2. Building a Job Scrapper
+# 2. Building a Job Scrapper_(1)
 
 
 
@@ -820,7 +820,7 @@ print(pages)
   def extract_indeed_jobs(last_pages):
   	jobs = []
     # for page in range(last_page):
-    result = request.get(f"{URL}&start={0*LIMIT}")
+    result = requests.get(f"{URL}&start={0*LIMIT}")
     soup = BeautifulSoup(result.txt, "html.parser")
     results = soup.find_all("div", {"class": "job search-SerpJobCard"})
     for result in results:
@@ -917,7 +917,8 @@ print(pages)
 - 개발자 도구를 다시켜서, 관련된 부분의 소스코드를 확인해보면  
   div의 id attribute 부분에 해당하는 정보가 있음을 확인할 수 있다
 
-- 그리고 여기서의 div는 extract_indeed_jobs 함수의 result 변수가 가리키는 값이다
+- 그리고 여기서의 div는,   
+  우리가 기존에 만든 extract_indeed_jobs 함수의 result 변수가 가리키는 값이다
 
 - 웹 페이지소스에서 해당 div안의 data-jk를 job_id라는 변수에 넣어주자
 
@@ -936,37 +937,52 @@ print(pages)
   ```python
   location = html.find("div", {"class":"recJobLoc"})["data-rc-loc"]
   job_id = html["data-jk"]
-  return {'title':title, 'company': company, 'location': location, "link": f"https://www.indeed.com/viewjob?jk={job_id}""}
+  return {'title':title, 'company': company, 'location': location, "link": f"https://www.indeed.com/viewjob?jk={job_id}"}
   ```
 
+- 이제, 전체 페이지를 테스트하기위해, 전체에 적용되도록 코드를 변경해보자  
+  이전에 첫 페이지만 테스트하기위해 주석처리해뒀던 반복문의 주석을 다시 풀고,  
+  0으로 상수 처리하였던 부분을 변수 page로 변경해주자
+
+- 여기서, `html.find("div", {"class":"recJobLoc"})["data-rc-loc"]` 부분에서  
+  `html.find("div", {"class":"recJobLoc"})` 부분은 div로 바꿔주고,  
+  뒤의 `["data-rc-loc"]` attribute 부분은 그 div에서 attribute를 가져온다
+
+- tip) 보다 확실하게 결과를 보기 위해 반복문 부분 바로 아래에,  
+  print를 하나 해두자
+
+  ```python
+  def extract_indeed_jobs(last_pages):
+  	jobs = []
+    for page in range(last_page):
+      print(f"Scrapping page {page}")
+      result = requests.get(f"{URL}&start={page*LIMIT}")
+      soup = BeautifulSoup(result.txt, "html.parser")
+      results = soup.find_all("div", {"class": "job search-SerpJobCard"})
+      for result in results:
+        job = extract_job(result)
+        jobs.append(job)
+    return jobs
+  ```
+
+- main.py로 가서 indeed_job를 print해주자
+
+  ```python
+  from indeed import extract_indeed_pages, extract_indeed_jobs
   
+  last_indeed_pages = extract_indeed_pages()
+  
+  indeed_jobs = extract_indeed_jobs(last_indeed_page)
+  
+  print(indeed_jobs)
+  ```
 
-## 2.9 StackOverflow Pages
-
-
-
-## 2.10 StackOverflow extract_jobs
-
-
-
-## 2.11 StackOverflow extract_job
+- print결과 원하는 link를 가져옴을 확인할 수 있다
 
 
 
-## 2.12 StackOverflow extract_job part Two
 
 
+### 다음 markdown
 
-## 2.13 StackOverflow Finish
-
-
-
-## 2.14 What is CSV
-
-
-
-## 2.15 Saving to CSV
-
-
-
-## 2.16 OMG THIS IS AWESOME
+- [2_Building_a_Job_Scrapper_(2)](/Users/sjeon/Desktop/For_min/Dev_Place/Nomad_Python/2_Building_a_Job_Scrapper_(2).md) 

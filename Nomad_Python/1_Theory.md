@@ -322,10 +322,9 @@ function_name 뒤의 ()를 button을 누르는 행위와 같다고 생각하면 
   def minus(a, b=0): # b가 주어지지 않는 경우, default를 0으로 설정
     print(a - b)
     
-  minus(2) 
-# result : 2
+  minus(2)
+  # result : 2
   ```
-  
 - print() 도 function이며, 무한대의 인자를 가질 수 있다.
 
 
@@ -339,7 +338,7 @@ function_name 뒤의 ()를 button을 누르는 행위와 같다고 생각하면 
   주로 사용하게된다.
 - 아래 실제 코드를 통해 비교해보자. 
 
-```python
+  ```python
 def p_plus(a, b):
 	print(a + b)
 # result : 5
@@ -352,7 +351,7 @@ r_result = r_plus(2, 3)
 
 print(p_result, r_result)
 # result : None, 5
-```
+  ```
 
 - return 
   : function을 호출 할 때, function을 return 값으로 치환시켜준다
@@ -404,20 +403,20 @@ Nico Says,
   	
   result = plus(b=30, a=1)
   print(result)
-# result : -29
+  # result : -29
   ```
-  
+
 - return 값이 string인 경우 
   : `return "string"` 의 형식으로 작성
 
   ```python
-  def say_hello():
-  	return "Hello"
-  	
-  say = say_hello()
-  
-  print(say)
-  # result : Hello
+def say_hello():
+return "Hello"
+
+say = say_hello()
+
+print(say)
+# result : Hello
   ```
 
   - return 값이 변수를 포함한 string인 경우,  
@@ -454,26 +453,24 @@ Nico Says,
   	
   plus(12, "10")
   # error 발생하므로, 예외처리 하기 / hint : type변환
-```
-  
- 
-  
-- plus
-
-- minus
-
-- times
-
-- division
-
-- negation
-
-- power
-
-- Reminder
+  ```
   
   
-
+  - plus
+  
+  - minus
+  
+  - times
+  
+  - division
+  
+  - negation
+  
+  - power
+  
+  - Reminder
+    
+    
 ## 1.10 Conditionals Part One
 
 
@@ -482,16 +479,16 @@ Nico Says,
 
 - if -else는 조건문이라고 부르며, 기본적으로 소프트웨어 logic을 컨트롤하는 방법
   대부분, 거의 모든 프로그래밍 언어는 조건문을 가지고 있음
-
+  
 - ```python
   if CONDITION:
   	1~~
 else:
     2~~
   ```
-  
+
    과 같이 구성
-  
+
   - 뒤에 항상 : 를 붙여야함에 유의
   - CONDITION이 TRUE라면 if절에 걸린 내용 (1~~) 이 실행되고
     FALSE라면 else절에 걸린 내용 (\~\~)이 실행된다
@@ -587,7 +584,7 @@ print(plus(12, 1.2))
 : for x(변수 이름) in days(sequence)
   
 > 배열의 요소 (such as a string, tuple or list) 를 순차적으로 가리키고 싶을 때 사용한다
-  
+
   ```python
   days = ("Mon", "Tue", "Wed", "Thu", "Fri")
   
@@ -607,7 +604,7 @@ print(plus(12, 1.2))
     print(letter)
   # result : n i c o l a s
   ```
-  
+
   
 
 ## 1.13 Modules
@@ -657,9 +654,9 @@ print(plus(12, 1.2))
   from math import fsum as sexy_sum
   
   print(sexy_sum([1, 2, 3, 4, 5, 6, 7]))
-# result : 28.0
+  # result : 28.0
   ```
-  
+
 - 기존에 calculator.py 라는 파일이 있고, 이 파일에 존재하는 함수를 쓰고 싶을 때,
   아래와 같이 사용
 
