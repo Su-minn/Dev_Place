@@ -534,8 +534,176 @@
 
 
 
+- 이제 jobs를 파일에 저장할 것이고, 여기서 말하는 파일은 Excel 같은 것을 의미
+
+- excel로 바꾸지는 않을 것이고, 맥, 윈도우, 브라우저, 구글 드라이브 등에서도 사용 가능한  
+  파일로 바꿀 것이다  
+  Excel은 마이크로소프트 제품이 있어야하기 때문
+
+- 그 파일의 확장명은 CSV 이다  
+  CSV : Comma Separated Values
+
+- CSV의 원리는 매우 간단하다  
+  모든 column을 comma로 나누어주는 것이다  
+  각 row는 new line을 통해 구분한다
+
+- we.csv (whatever) 라는 이름의 파일을 하나 생성하고, 아래와 같이 작성하자  
+
+  ```csv
+  name, last name, age, gender
+  nico, serrano, 12, male
+  nico, serrano, 12, male
+  nico, serrano, 12, male
+  nico, serrano, 12, male
+  ```
+
+  그리고 이 파일을 저장한 후에, CSV preview로 보면 table형식으로 보여준다  
+
+  이 파일은 구글 스트레드시트에서 불러올 수도 있다  
+
+  import 탭에 가서 업로드를 하고,   
+  import location에서 replace spreadsheet를 선택한 후,  
+  separator type에서 comma를 선택하고, Import를 하자
+
+- 맥 os에서도 csv확장자를 열면 테이블 형태로 보여준다
+
+- 파이썬에는 이미 csv를 다루는 기능이 탑재되어 있다  
+
+  save.py라는 이름의 파일을 만들고 아래와 같이 코드를 작성하자  
+  job을 인자로 받아서 csv 파일로 저장할 예정이다
+
+  ```python
+  import csv
+  
+  def save_to_file(jobs)
+  	return
+  ```
+
+- main.py에가서 save.py를 import 해주자  
+  그리고, 기존에 job을 print해주던 코드를 file로 저장하는 함수로 바꿔주자
+
+  ```python
+  from indeed import get_jobs as get_indeed_jobs
+  from so import get_jobs as get_so_jobs
+  from save import save_to_file
+  
+  so_jobs = get_so_jobs()
+  indeed_jobs = get_indeed jobs()
+  jobs = so_jobs + indeed_jobs
+  save_to_file(jobs)
+  ```
+
+  
+
 ## 2.15 Saving to CSV
 
 
 
+- 파이썬에서 이미 제공하는 함수를 통해 파일을 저장하는 함수를 작성해보자
+
+- open 함수 : 파일을 여는 함수, 파일이 없는 경우 생성해준다  
+  반드시 mode를 설정해주어야한다 여기서는 w로 설정하고, 추후 구체적 설명 예정
+
+  ```python
+  import csv
+  
+  def save_to_file(jobs)
+  	file = open("jobs.csv", mode="w")
+    print(file)
+  	return
+  ```
+
+- 이 코드를 실행시키면, 원하는 jobs.csv라는 이름의 파일이 생성된다
+
+- 파일을 열 때, 다양한 방식으로 mode를 설정해줄 수 있고,  
+  읽기 형식으로 파일을 열 수도 있고, 쓰기로 열 수도 있다 / 읽기전용, 쓰기전용  
+  w로 설정하면, 쓰기전용으로 설정한 것이고,  
+  쓰기전용으로 설정하면, 파일에 무엇이 쓰여있어도 open을 하면 그 내용이 지워지고  
+  새롭게 작성된다
+
+- print결과로 나오는 io.TextIOWrapper 에서 io는 input / ouput 을 의미하며,  
+
+  우리가 원하는 대로 수정할 수 있다
+
+- 이제 Csv파일의 첫 줄을 만들어보자
+
+- 우리가 만드는 파일의 첫줄은 jobs의 내용인 title, company, location, link가 되어야한다
+
+- 다시 save.py로 가서, writer을 사용할 예정이고, csv 파일을 작성할 예정이다  
+  csv를 import했기에, csv파일로 작성이 가능하다
+
+- 아래와 같은 코드를 작성하여, csv로 작성하자 
+
+- 연 파일을 file이라는 변수에 저장한 후, 그 파일에 csv.writer로 writer를 만들어준다
+
+- 그리고  `writer.writerow`를 통해 내용을 작성한다  
+  이 때, 한줄로, 리스트 형식으로 작성해줘야한다  
+
+- save.py에서 아래와 같이 작성
+
+  ```python
+  import csv
+  
+  def save_to_file(jobs)
+  	file = open("jobs.csv", mode="w")
+  	writer = csv.writer(file)
+    writer.writerow(["title, company, location, link"])
+  	return
+  ```
+
+- 이제 jobs의 값들을 원하는 방식으로 csv에 저장할 예정
+
+- jobs에서 가져오는 값은 dictionary형태로  
+  {'title' : 'Python Developer', 'company' : 'America Inc', ... } 로 구성 되어있고,  
+  우리가 원하는 값은 앞 부분 key값이 아닌 뒷 부분의 value 값이다
+
+- 반복문을 통해 한줄씩 받고, value 값을 가져오도록 하자  
+
+  ```python
+  import csv
+  
+  def save_to_file(jobs)
+  	file = open("jobs.csv", mode="w")
+  	writer = csv.writer(file)
+    writer.writerow(["title, company, location, link"])
+    for job in jobs:
+    	print(job.values())
+  	return
+  ```
+
+   test를 위해, job.values를 print해보면 dic_values[~~]로 출력됨을 알 수 있다
+
+- type(job.values())로 type을 알아보면 <class dict_values>인 것을 알 수 있고,  
+  우리가 원하는 것은 string array이므로 아래와 같이 list로 변환을 시켜주자  
+
+  ```python
+  import csv
+  
+  def save_to_file(jobs)
+  	file = open("jobs.csv", mode="w")
+  	writer = csv.writer(file)
+    writer.writerow(["title, company, location, link"])
+    for job in jobs:
+    	writer.writerow(list(job.values()))
+  	return
+  ```
+
+- 값 자체에 , (comma)가 들어있는 경우가 있는데, 직접 코드를 작성해서 하려면  
+  csv의 comma와 value의 comma를 구분하는 작업을 해줘야한다  
+
+- 하지만 파이썬의 CSV패키지는 알아서 해줘서 편하게 사용 가능하다
+
+- 이제 코드는 모두 완성 되었고, 다음 강의에서 최종 결과를 확인해보자
+
+
+
 ## 2.16 OMG THIS IS AWESOME
+
+
+
+- 마지막 결과를 스프레드시트로 보자  
+  repl.it 에서 작업했다면, 다운로드가 필요하다
+- 왼쪽의 삼지창 표시에서 Download zip을 선택하여 다운하자
+- 구글 스프레드시트에 들어가서 import를 통해 jobs.csv를 가져오자
+- 완성된 것을 알 수 있다!
+- 스크래핑의 힘은 굉장하고, 이것은 좋은 비즈니스 모델을 만들 수 있다 
