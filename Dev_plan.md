@@ -64,7 +64,7 @@ Winter : 인턴 진행
 - ==신기술에 대한 지속적 학습 및 트렌드 파악== (Data Science & AI & ML 관련 학습 병행)
 
 
-### Action Plan (Ver. 2020-05)
+### Action Plan (Ver. 2020-06)
 
 - Rule 
   1) 모든 것에 대한 정리와 기록 (Titan's Tool -> My Tool)
@@ -79,8 +79,10 @@ Winter : 인턴 진행
   Markdown - Typora
   // 추후 Porfolio 화 
 
-- SSi-Python Project (2020-05-25 ~ 2020-06-05)
-
+- SSi-Python Project   
+1차 - (2020-05-25 ~ 2020-06-05)  
+  2차 - 계획 중
+  
   =="Life is Short, You need Python" - Bruce Eckel==
   
   > Goal : Python 언어를 자유자재로 활용할 수 있는 능력 기르기
@@ -89,7 +91,7 @@ Winter : 인턴 진행
   > 	2-1) 문제 해결 능력 향상 시키기 
 > 3) Python 이용 크롤링 진행해보기
   > 4) Data Science 학습 진행하기
-  
+
   - Doc
     - [Namu wiki](https://namu.wiki/w/Python) (정리 예정 🐤)
   - Lecture
@@ -102,7 +104,7 @@ Winter : 인턴 진행
   - Algorithm
     - [Programmers | 코딩테스트 WebSite](https://programmers.co.kr/) (진행 예정 🐤)
   - Project
-    - [JoCoding Project | Youtube Channel Event](https://youtu.be/UfuuOJ9oVl8) (진행 예정 🐤)
+    - [JoCoding Project | Youtube Channel Event](https://youtu.be/UfuuOJ9oVl8) (실패 😂)
       Deadline : 2020-06-05(Fri.)
 
 
