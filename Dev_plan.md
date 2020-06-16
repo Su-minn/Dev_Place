@@ -10,7 +10,8 @@ Creating_tool : Dev
 - 개발 능력과 경영적 사고, 비즈니스적 시각, 산업공학적인 시각 들이 콜라보레이션 되었을 때, 그 힘은 몇 배로 커질 것이라고 확신.
 - Creative 한 방식으로 Operation 을 향상시키는 능력을 갖고 싶은 나에게, 필수적으로 필요한 도구라고 생각하며,
   내 Identity에 큰 한 축이 되는 능력으로 만들 것이다.
-  
+
+
 
 
 ## Plan
@@ -64,6 +65,8 @@ Winter : 인턴 진행
 - ==신기술에 대한 지속적 학습 및 트렌드 파악== (Data Science & AI & ML 관련 학습 병행)
 
 
+
+
 ### Action Plan (Ver. 2020-06)
 
 - Rule 
@@ -79,9 +82,31 @@ Winter : 인턴 진행
   Markdown - Typora
   // 추후 Porfolio 화 
 
+- My Web & App Service Project  
+  2020-06-15 ~ 2020-06-21
+
+  > Goal :   
+  > 내가 쓰고 싶은 웹, 앱 어플리케이션을 최대한 빠르고 완성도 있게, 재밌게 만들어보기
+  >
+  > Project Concept :  
+  > 전반적인 웹,앱 구현을 목표로하며, 간단한 수준의 프론트 백엔드를 모두 다루고,  
+  > 기술보다는 서비스에 집중을 두어 어떠한 방식을 사용해서라도 최상의 결과물을 만드는 프로젝트
+  >
+  > Project Content :  
+  > 아직 미정
+
+- [Markdown](/Users/sjeon/Desktop/For_min/Dev_Place/My_WebnApp_Project/My_WebnApp_Project.md)
+- Reference
+
+  - [Jocoding | Youtube](https://www.youtube.com/watch?v=ZTJjW7XuHIY&list=PLU9-uwewPMe2-vtJAgWB6SNhHcTjJDgEO) (진행 예정 🐤)
+
+  
+
+## 진행 예정
+
 - SSi-Python Project   
 1차 - (2020-05-25 ~ 2020-06-05)  
-  2차 - 계획 중
+  2차 - 진행 예정  
   
   =="Life is Short, You need Python" - Bruce Eckel==
   
@@ -89,13 +114,14 @@ Winter : 인턴 진행
   > 1) 언어에 익숙해지기
   > 2) Python을 이용하여 코딩테스트 응시할 수 있는 실력 만들기
   > 	2-1) 문제 해결 능력 향상 시키기 
-> 3) Python 이용 크롤링 진행해보기
+  >
+  > 3) Python 이용 크롤링 진행해보기
   > 4) Data Science 학습 진행하기
-
   - Doc
     - [Namu wiki](https://namu.wiki/w/Python) (정리 예정 🐤)
   - Lecture
-    - Nomad Coder Lecture 수강 (진행중 🐣)
+    - Nomad Coder Lecture 수강 (진행 예정 🐤)
+      - Chapter 2. Web Scraping - Complete ! (🐥)
     - [Microsoft Python Lecture](https://www.youtube.com/watch?v=D8OaGUYkHTE&list=PLlrxD0HtieHhHnCUVtR8UHS7eLl33zfJ-) 수강 [Data Science Focusing] (진행 예정 🐤)
     - [Naver Edwith Lecture](https://www.edwith.org/search/show?searchQuery=%ED%8C%8C%EC%9D%B4%EC%8D%AC&MAX=20) (진행 예정 🐤)
     - [Youtube 나도코딩 기본편 Lecture](https://www.youtube.com/watch?v=kWiCuklohdY) (진행 예정 🐤)
