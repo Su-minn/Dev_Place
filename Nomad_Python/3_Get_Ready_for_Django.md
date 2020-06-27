@@ -82,7 +82,8 @@
   위의 예시에는, porche, ferrari, mini가 instance에 해당
 
 - Instantiation : 설계도를 가지고 와서 Instance를 만드는 것
-  
+
+
 
 ## 3.3 Methods part One
 
@@ -122,7 +123,7 @@
 
   
 
-## 3.4 Methods part Tow
+## 3.4 Methods part Two
 
 - 이미 있지만 사용하지 않았던 method들이 존재
 
@@ -158,7 +159,8 @@
 - \__str__은 호출될 때마다 그 class의 instance 출력
 
 - Override : 기존에 있는 것을 재정의 하고 싶을 때 사용
-  
+
+
 
 ## 3.5 Extending Classes
 
