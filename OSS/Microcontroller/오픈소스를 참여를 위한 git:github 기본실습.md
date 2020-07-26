@@ -694,3 +694,228 @@ $ git log --oneline -1
 
 
 
+7) 라이센스 서명 넣어서 commit message 적기
+
+```bash
+# 수정한 내용 기준으로 commit 할 준비하기
+$ git add mnist/main.py
+
+# commit 만들기
+# -s 옵션 포함시 라이센스 서명을 의미하는 Signed-off-by 내용을
+# commit message 안에 포함하게 된다.
+$ git commit -sm "Add import requests"
+
+# commit message 안에 Signed-off-by 확인
+$ git show
+```
+
+- signed-off-by는 라이센스를 잘 의미했다는 서명 표시
+- 위에 뜨는 Author 저자 표시와는 의미가 좀 다르다
+- 오픈 소스 입장에서는, 간혹 오픈소스임에도 본인 코드에 대한 소유권을 주장하고 소송하는 경우가 있었음
+- 실제 실습에서는 CLA라고하는, Contributor Lisence Agreement 라는  
+  내가 이 라이센스를 이해하고 진행한다는 회원가입 인증절차 밟게 될 것
+- 요즘은 서명인 -s를 안넣고 CLA 회원가입을 통해서 진행할 수 있음
+- 프로젝트마다 조금씩 다르기에 참고해야함  
+  어떤 프로젝트에는 서명을 넣는게 필수인 경우도 존재한다
+
+
+
+8) commit 수정하기 (amend)
+
+```bash
+# 최신 Commit 수정이전 commit ID 확인하기
+$ git log --oneline -1
+106d167 (HEAD -> fix-mnist) Add import requests
+
+# 수정한 내용 commit 할 준비하기
+$ git add mnist/main.py
+
+# 최신 commit 수정하기
+$ git commit --amend
+
+# 최신 commit 수정 이후 commit ID 확인하기
+$ git log --oneline -1
+9786c82 (HAED -> fix-mnist) Add import requests
+```
+
+- 수정을 하고 싶은데, commit을 새로 하고 싶지는 않은 경우,  
+  최신 히스토리 기준으로 수정분을 더할 수 있다
+- 여기서 amend를 하면, 수정에 대한 commit ID는 변경된다
+  - 수정 시간이든, 내용이든 어떠한 부분이라도 변경되면 commit ID가 변경된다
+- 여기서 HEAD는 가장 최근 히스토리를 의미한다
+
+
+
+
+
+### Git 도구 : 소스코드 파일 다루기 - 고급실습
+
+- 오픈 소스 입장에서, 메인테이너보다는 컨트리뷰터로서 더 자주 사용하는 내용들을 위주로 학습
+
+
+
+1) 나의 Fork 저장소와 오픈소스 Github 저장소 설정
+
+```bash
+# 오픈소스 공식 github 프로젝트 URL
+# upstream 으로 등록 하기
+$ git remote add upstream https://github.com/taeung/pytorch-example
+
+# origin: 나의 Fork 저장소 Github URL
+# upstream: 오픈소스 공식 github URL (또는 팀프로젝트 URL)
+$ git remote -v
+origin https://github.com/gentlelinuxer/pytorch-example.git (fetch)
+origin https://github.com/gentlelinuxer/pytorch-example.git (push)
+upstream		https://github.com/taeung/pytorch-example (fetch)
+upstream		https://github.com/taeung/pytorch-example (push)
+```
+
+- remote가 두개 존재한다
+  - original 과 upstream
+  - remote 주소가 꼭 github은 아니다 - 회사 레포지토리 일 수도, IP일 수도 있다
+- 보통 origin만 remote로 존재한다면 backup용으로 사용하고 있는 것
+- upstream이 필요한 경우는, rebase를 사용해야할 경우 때문이다
+- 다른 사람이 진행한 내용이 먼저 merge가 되었을때, 다시 rebase를 받아야한다
+- 이게 혼란스러우면, 모두 collabrator로 등록하고 push 권한을 열수도 있겠지만,  
+  오픈소스 개발 방향과는 맞지 않는 이야기
+
+
+
+![image-20200726210650057](/Users/sjeon/Library/Application Support/typora-user-images/image-20200726210650057.png)
+
+
+
+![image-20200726210702215](/Users/sjeon/Library/Application Support/typora-user-images/image-20200726210702215.png)
+
+
+
+![image-20200726210710148](/Users/sjeon/Library/Application Support/typora-user-images/image-20200726210710148.png)
+
+
+
+- 다른 사람의 commit이 먼저 merge된 경우, base가 바뀐 것과 마찬가지이므로  
+  이것을 토대로 작업을 진행 해야한다
+- 메인테이너는, PR을 받는 입장에서 종종 컨트리뷰터가 commit 을 날리면  
+  commit은 좋은데, rebase를 먼저 진행하고 오라는 이야기를 함
+
+- Pull은 fetch + merge 이다
+- pull 받는 것 보다, 디테일하게 들어가려면 fetch를 먼저 하는 방법이 있다
+- 이렇게 local에 받은 내용은 내가 fork했던 repository에 다시 push 되어야함
+- rebase를 받는 경우, 바뀐 base와 내가 작업했던 내용이 겹쳐서 충돌이 일어나는 경우에는,  
+  수동으로 작업을 해줘야함  
+  git이 이 부분까지 자동으로 해결할 수는 없음
+- rebase 과정을 조금 더 구체적으로 보면,  
+  중간에 commit이 끼어 들어간 것이 아니라,  
+  rewind를 통해 기존 base로 되감기를 하였다가, 그 위에 새로운 base를 갱신하고,  
+  작업한 부분을 쌓는 방식으로 진행된다
+
+![image-20200726211711879](/Users/sjeon/Library/Application Support/typora-user-images/image-20200726211711879.png)
+
+
+
+- github이 꼬여있는 경우, force push를 해야하는 경우도 있음
+  - github은 서버 저장소일 뿐이기에,  
+    꼬여있는 경우에는 local에서 정리를 잘 한다음에, force push하는 방식으로 진행
+- 컨트리뷰터 입장에서 fork한 저장소에 force push하는 경우가 많음
+- 하지만, upstream은 여러명이 사용하는 곳이서 force push하는 경우는 거의 없음
+- 이렇게 push를 하면, 이전에 보낸 pull-request에 대하여 github이 자동으로 갱신하여  
+  반영시켜준다
+
+![image-20200726211728584](/Users/sjeon/Library/Application Support/typora-user-images/image-20200726211728584.png)
+
+
+
+2) 오픈소스 Github 최신 소스수정내역(commit)으로 Base 업데이트 : Rebase
+
+```bash
+# 공식 upstream 저장소에서 최신 Commit history 가져오기
+$ git fetch upstream master
+
+# 최신 commit history 기준으로 베이스 갱신 (rebase)
+$ git rebase upstream/master
+
+# Fork한 저장소(Github)도 수정하기 (PR 자동 갱신)
+$ git push --force origin fix-mnist
+```
+
+- 여기서 upstream/master는 fetch로 가져오게되면 생기는 local branch의 명칭이다
+- 기존에서 master라는 이름의 branch가 존재하므로 구분하기 위해 이와같이 명명된다
+- rebase가 정상적으로 되었다면,  
+  `git log --oneline`을 해보았을 때, 내가 commit한 부분 아래에 base가 잘 교체되어있다
+
+
+
+3) 수정내역(commit) 과거 시점으로 되감기 : rewind
+
+```bash
+# Rebase 실습할 github 저장소 소스폴더 다운받고 이동
+$ cd /workspace
+$ git clone https://github.com/taeung/git-training
+$ cd git-training
+
+# 가장 오래된 commit 두번째로 되감기
+# 두번째로 가장 오래된 commit 의 "pick" 글자를 "edit"으로 수정하기
+# nano 편집기 저장 : Ctrl + O
+# nano 편집기 나가기 : ctrl + x
+$ git rebase -i --root
+
+# 되감기(rewind)한 commit 리스트 확인하기
+$ git log --oneline
+
+# rebase intreactive 상태 (되감은 상태) 확인
+$ git status
+
+# 참고: --root 대신 최신 commit 기준으로 HEAD~10 10개중에서 선택도 가능하다
+```
+
+
+
+4) 수정내역(commit) 다시 현재시점으로 풀기(continue)
+
+```bash
+# 되감은 내용 풀기(continue) 이전 상태 확인
+$ git log --oneline
+
+# 되감은 내용 풀기 (continue)
+$ git rebase --continue
+
+# 되감은 내용 풀기(continue) 이후 상태 확인
+$ git log --oneline
+
+# 참고: rebase 과정을 취소하려면 --abort 옵션을 사용할 수 있다
+```
+
+- `git rebase -i --root` 에서 pick을 edit으로 여러 군데를 수정하게 되면,  
+  각각 break point 역할을 한다
+- 즉, rewind는 가장 오래된 edit 지점으로 가고 continue를 할때 마다,  
+  edit으로 수정된 부분으로 이동하게 된다
+- 가장 최신상태로 돌아오려면 continue를 edit으로 변경한 숫자만큼 진행해줘야한다.
+- 오픈소스 작업을 하다보면, 리뷰나 디스커션이 자주 일어나게 되고,  
+  그러면 commit을 수정해야하는 경우들이 많이 발생하게 된다
+- 예로 Commit을 10개했는데, 메인테이너가 3번째, 4번째의 Commit 수정을 요구한다면,  
+  rewind를 통해 3번째로 감아서, amend로 수정을 하고 돌아오는 방법이 가능하다
+- amend는 최신 히스토리만 수정가능하지만, rewind로 이전 과거로 돌아갈 수 있다면,  
+  중간 내용도 모두 수정할 수 있게 된다
+
+
+
+5) 특정 소스코드 라인에서 버그가 있을 때 Commit 정보 찾기 : blame
+
+```bash
+# 해당 소스파일을 누가 수정했고 언제 수정했는지
+# 소스 라인 기준으로 Commit 정보를 찾아 낼 수 있다
+
+$ git blame cmds/record.c
+...
+edf805aad cmd-record.c (Taeung Song 2018-04-16 ... 102)
+edf805aad cmd-record.c (Taeung Song 2018-04-16 ... 103)
+...
+
+# 103 번째 라인은 누가 수정했고, 언제 수정했는지 왜 수정했는지
+# Commit 정보를 확인할 수 있다.
+# blame은 최신 Commit 기준으로 보여준다
+$ git show edf805aad
+```
+
+ 
+
