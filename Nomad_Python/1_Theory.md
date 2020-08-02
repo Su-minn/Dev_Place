@@ -341,37 +341,56 @@ function_name 뒤의 ()를 button을 누르는 행위와 같다고 생각하면 
   ```python
 def p_plus(a, b):
 	print(a + b)
-# result : 5
-
-def r_plus(a, b):
-	return a + b
-
-p_result = p_plus(2, 3)
-r_result = r_plus(2, 3)
-
-print(p_result, r_result)
-# result : None, 5
-  ```
-
+	
+	# result : 5
+	
+	def r_plus(a, b):
+		return a + b
+	
+	p_result = p_plus(2, 3)
+	r_result = r_plus(2, 3)
+	
+	print(p_result, r_result)
+	
+	# result : None, 5
+	```
 - return 
   : function을 호출 할 때, function을 return 값으로 치환시켜준다
-  오직 한 번에 하나의 값만 return 할 수 있다
-  
+
+  - 여러 개의 값을 반환할 수 있으며, 이 경우에는 튜플이 반환된다 (언패킹)
+
+  - 파이썬에서는 괄호 없이 값을 콤마로 구분하면 튜플
+
+  - ```python
+    return 1, 2
+    
+    return (1, 2)
+    
+    # 같은 표현
+    ```
+
   - 또한, return은 함수를 종료시킨다
-  
-  ```python
-  def r_plus(a,b):
+
+
+
+
+```python
+ def r_plus(a,b):
   	return a + b
   	print("This sentence is not printed")
   	
   r_result = r_plus(2,4)
-  
+
   print(r_result)
-  # result : 6
-  # r_plus 함수에서 return 이후의 내용은 실행되지 않는다
-  ```
-  
-  
+
+# result : 6
+
+# r_plus 함수에서 return 이후의 내용은 실행되지 않는다
+```
+
+ 
+
+
 
 ## 1.7 Heart
 
@@ -412,6 +431,7 @@ Nico Says,
   ```python
 def say_hello():
 return "Hello"
+  ```
 
 say = say_hello()
 
