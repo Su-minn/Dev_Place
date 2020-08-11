@@ -627,6 +627,9 @@ W = tf.Variable(tf.random_normal([3, 1]))
 ```python
 def step(x):
 	return tf.to_float(tf.greater(x, 0))
+
+# x가 0보다 크면 true를 리턴하고 float로 변경하면 1.0
+# 그렇지않으면 false 리턴하고, float로 변경하면 0.0 리턴
 ```
 
 
@@ -644,11 +647,210 @@ mse = tf.reduce_mean(tf.square(error))
 
 
 
+### Optimize weights
+
+- Here is how we update weights using learning rule which derived from below concept.
+  - if target == 1 and activation = 0:  
+    w_new = w_old + input
+  - if target == 0 and activation = 1:  
+    w_new = w_old - input
+- 딥러닝에서 사용하는 gradient descent는 지금의 경우 사용할 수 없다.
+  - 사용하는 step function은 gradient가 없기 때문 (기울기가 0)
+
+```python
+delta = tf.matmul(X, error, transpose_a=True)
+train = tf.assign(W, tf.add(W, delta))
+```
+
+
+
+### Training and Testing
+
+- Start Training and Testing
+
+```python
+# Initialize the variable (i.e. assign their default value)
+init = tf.global_variables_initializer()
+
+# Start training
+with tf.Session() as sess:
+	# Run the initializer
+	sess.run(init)
+	err = 1
+	epoch, max_epochs = 0, 20
+	while err > 0.0 and epoch < max_epochs:
+		epoch += 1
+		err = sess.run(mse)
+		sess.run(train)
+		print('epoch:', epoch, 'mse:', err)
+		
+  print("\nTesting Result:")
+  print(sess.run([output]))
+```
+
+
+
+- 싱글 퍼셉트론으로 AND와 OR 연산자는 해결이 되나, XOR 연산자는 해결되지 않는다.
+
+
+
 
 
 ## 다층퍼셉트론(MLP) 텐서플로우 구현_ 1. XOR
 
 
+
+### MLP XOR Solution
+
+![image-20200805002310739](/Users/sjeon/Library/Application Support/typora-user-images/image-20200805002310739.png)
+
+
+
+- 단일 퍼셉트론으로는 XOR 문제를 해결할 수 없었다
+  - 퍼셉트론 하나는 선을 하나 긋는 것과 비슷한 역할을 하는데, XOR은 선 하나로 분리할 수가 없다
+  - 선 2개가 필요함
+- 다층 퍼셉트론으로 문제를 해결해야한다
+
+
+
+![image-20200805002448147](/Users/sjeon/Library/Application Support/typora-user-images/image-20200805002448147.png)
+
+- 퍼셉트론 2개로 z1과 z2에 해당하는 선 2개를 그은 다음에,  
+  z1과 z2를 각 축으로 하는 그래프 그린다
+  - 퍼셉트론 2개 역할
+  - 첫번째 히든 레이어에 퍼셉트론 2개
+- 이 후, 다시 선 하나를 그으면 검은색 원과 흰색 원을 분리할 수 있다. 
+  - 두번째 히든 레이어의 퍼셉트론 1개의 역할
+- 이번 실습에서는 step function 대신 sigmoid function 사용 예정
+  - deep learning 모델을 optimize 계산하기 위해서는 back propagation 법이 사용되어야 하는데,  
+    이 방법은 미분가능한 함수에만 적용 가능
+  - 이 방법을 통해 최적의 weigh value와 bias value를 찾게 되어있다
+  - step function은 미분 불가능
+
+
+
+### Architecture
+
+![image-20200805002959600](/Users/sjeon/Library/Application Support/typora-user-images/image-20200805002959600.png)
+
+- Loss function으로 cross entropy 사용할 계획
+- 뒤로가며 최적화과정을 진행하고, w value와 b value가 최적화 되게됨
+- 이 과정을 진행하고나면 XOR 문제를 해결할 수 있다
+
+
+
+### Practice with Tensorflow
+
+```python
+import tensorflow as tf
+```
+
+
+
+### Define Tensorflow Graph
+
+- fisrstly, we will define train data shape.  
+  XOR train data has input X and output Y.
+- X is [4, 2] shape like below,  
+  [0, 0], [0, 1], [1, 0], [1, 1]
+- Y is [4, 1] shape like below,  
+  [[0], [1], [1], [0]]
+
+```python
+X = tf.placeholder(tf.float32, shape = [4, 2])
+Y = tf.placeholder(tf.float32, shape = [4, 1])
+```
+
+- tensorflow는 graph를 먼저 만들어주고, 그 graph를 training하면 최적의 변수를 설정하게됨
+- graph를 만들기 위한 첫번째 레이어인 input레이어 설정
+
+
+
+### First Layer
+
+```python
+# we define first layer has two neurons taking two input values.
+# 2개의 값을 받고, 2개의 node가 있으므로 [2, 2]
+W1 = tf.Variable(tf.random_uniform([2,2]))
+# each neuron has one bias.
+B1 = tf.Variable(tf.zeros([2])
+# First Layer's output is Z which is the sigmoid(W1 * X + B1)
+Z = tf.sigmoid(tf.matmul(X, W1) + B1)
+```
+
+- 첫번째 히든 레이어는 2개의 node(퍼셉트론)를 가지고 있다
+
+
+
+### Second Layer
+
+```python
+# We define second layer has one neurons taking two input values.
+W2 = tf.Variable(tf.random_uniform([2,1]))
+# one neuron has one bias.
+B2 = tf.Variable(tf.zeros([1]))
+# Second Layer's output is Y_hat which is the sigmoid(W2 * Z + B2)
+Y_hat = tf.sigmoid(tf.matmul(Z, W2) + B2)
+```
+
+
+
+### Loss Function
+
+```python
+# cross entropy
+loss = tf.reduce_mean(-1*((Y*tf.log(Y_hat)) + ((1-Y)*tf.log(1.0-Y_hat)))
+```
+
+- 0 또는 1의 결과값을 가지므로, 기본적으로 classification 함수
+- linear regression 같은 경우는 MSE를 사용하지만,
+- classification은 보통 cross entropy 사용
+
+
+
+### Optimizer
+
+```python
+# Gradient Descent
+train_step = tf.train.GradientDescentOptimizer(0.05).minimize(loss)
+```
+
+- optimize는 가장 기본적인 gradient dsecent 사용
+- learning rate 는 0.05
+
+- 이제 모든 그래프가 설정되었으므로, 학습을 진행
+
+
+
+### Train
+
+```python
+# train data
+train_X = [[0,0], [0,1], [1,0], [1,1]]
+train_Y = [[0], [1], [1], [0]]
+```
+
+```python
+# initialize
+init = tf.global_variables_initializer()
+# Start training
+with tf.Session() as sess:
+	# Run the initializer
+	sess.run(init)
+	print("train data: "+str(train_X))
+	for i in range(20000):
+		sess.run(train_step, feed_dict={X: train_X, Y: train_Y})
+		if i % 5000 == 0:
+			print('Epoch :' , i)
+			print('Output : ', sess.run(Y_hat, feed_dict={X: train_X, Y: train_Y}))
+			
+	print('Final Output : ', sess.run(Y_hat, feed_dict={X: train_X, Y: train_Y}))
+```
+
+- 20000번 반복을 하여, back propagation을 진행하며 weight value와 bias value를 업데이트
+
+- 결과적으로 [0, 0], [1, 1] 일 때는 약 0.02,  
+  [0,1], [1,0] 일 때는 약 0.98이 나오며 높은 정확성을 보임을 확인할 수 있다
 
 
 
